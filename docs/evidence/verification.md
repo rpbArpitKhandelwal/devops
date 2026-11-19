@@ -12,7 +12,7 @@
 - `docker run -d --name order-service -p 8000:8000 devops-cicd-kubernetes-lab:local` served `/`, `/health`, and `/orders` successfully.
 - `docker pull ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest` completed successfully.
 - `docker run -d --name ghcr-order-service -p 8002:8000 ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest` served `/health` and `/orders` successfully.
-- GitHub Actions run `44516038848` completed successfully.
+- GitHub Actions run `44517837467` completed successfully.
 - `kubectl kustomize k8s` rendered the manifests successfully.
 - kind cluster `kind-devops-lab` deployed the app successfully.
 - `kubectl port-forward svc/order-service 8003:80` exposed a live service where `/`, `/health`, `/orders`, and `/docs` all responded successfully.
@@ -20,5 +20,19 @@
 ## Published links
 
 - Repository: `https://github.com/rpbArpitKhandelwal/devops`
-- Actions run: `https://github.com/rpbArpitKhandelwal/devops/actions/runs/44516038848`
+- Actions run: `https://github.com/rpbArpitKhandelwal/devops/actions/runs/44517837467`
 - GHCR image: `ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest`
+
+## Screenshots captured
+
+- Local API docs: `docs/evidence/local-docs.png`
+- Pytest success: `docs/evidence/pytest-success.png`
+- Docker + GHCR verification: `docs/evidence/docker-ghcr-success.png`
+- Kubernetes verification: `docs/evidence/k8s-success.png`
+- GitHub Actions success: `docs/evidence/github-actions-success.png`
+
+## Supporting HTML sources
+
+- `docs/evidence/pytest-success.html`
+- `docs/evidence/docker-ghcr-success.html`
+- `docs/evidence/k8s-success.html`

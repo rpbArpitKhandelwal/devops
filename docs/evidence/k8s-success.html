@@ -1,0 +1,33 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Kubernetes Verification</title>
+<style>
+body { font-family: Consolas, 'Courier New', monospace; background:#0f172a; color:#e2e8f0; margin:0; padding:24px; }
+h1 { font-family: Segoe UI, Arial, sans-serif; font-size:28px; margin:0 0 16px; }
+pre { white-space:pre-wrap; word-break:break-word; background:#111827; border:1px solid #334155; border-radius:12px; padding:20px; font-size:18px; line-height:1.45; }
+</style>
+</head>
+<body>
+<h1>Kubernetes Verification</h1>
+<pre>kubectl config use-context kind-devops-lab
+Switched to context &quot;kind-devops-lab&quot;.
+
+kubectl get pods
+NAME                             READY   STATUS    RESTARTS   AGE
+order-service-599c8c8b66-wgvmn   1/1     Running   0          8m4s
+
+kubectl get svc order-service
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+order-service   ClusterIP   10.96.41.132   &lt;none&gt;        80/TCP    8m5s
+
+kubectl port-forward svc/order-service 8003:80
+Invoke-RestMethod http://127.0.0.1:8003/health
+{&quot;status&quot;:&quot;healthy&quot;}
+
+Invoke-RestMethod http://127.0.0.1:8003/orders
+{&quot;orders&quot;:[{&quot;id&quot;:1,&quot;item&quot;:&quot;Laptop&quot;,&quot;status&quot;:&quot;shipped&quot;},{&quot;id&quot;:2,&quot;item&quot;:&quot;Keyboard&quot;,&quot;status&quot;:&quot;processing&quot;}],&quot;timestamp&quot;:&quot;2026-11-19T11:51:43.815788+00:00&quot;}
+</pre>
+</body>
+</html>

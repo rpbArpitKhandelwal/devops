@@ -1,0 +1,31 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Docker GHCR Verification</title>
+<style>
+body { font-family: Consolas, 'Courier New', monospace; background:#0f172a; color:#e2e8f0; margin:0; padding:24px; }
+h1 { font-family: Segoe UI, Arial, sans-serif; font-size:28px; margin:0 0 16px; }
+pre { white-space:pre-wrap; word-break:break-word; background:#111827; border:1px solid #334155; border-radius:12px; padding:20px; font-size:18px; line-height:1.45; }
+</style>
+</head>
+<body>
+<h1>Docker GHCR Verification</h1>
+<pre>docker pull ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest
+latest: Pulling from rpbarpitkhandelwal/devops-cicd-kubernetes-lab
+Digest: sha256:806db0294589fca24a0c76ec21c2b10c3dc75a1ac9318145cc24bb3abc9f6b3b
+Status: Image is up to date for ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest
+ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest
+
+docker run --rm -d --name evidence-ghcr-shot -p 8002:8000 ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest
+177dd62702d34574da9403d16d06f799e07b4cc2f7d73fff3d96a98d053472d2
+
+docker ps --filter name=evidence-ghcr-shot
+CONTAINER ID   IMAGE                                                          COMMAND                  CREATED         STATUS                            PORTS                                         NAMES
+177dd62702d3   ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest   &quot;uvicorn app.main:ap…&quot;   6 seconds ago   Up 5 seconds (health: starting)   0.0.0.0:8002-&gt;8000/tcp, [::]:8002-&gt;8000/tcp   evidence-ghcr-shot
+
+Invoke-RestMethod http://127.0.0.1:8002/health
+{&quot;status&quot;:&quot;healthy&quot;}
+</pre>
+</body>
+</html>
