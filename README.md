@@ -128,7 +128,42 @@ The default manifest already points at the published GHCR image.
 
 ## Screenshots and Evidence
 
-Store genuine screenshots of successful local runs, Docker output, CI runs, and Kubernetes verification in `docs/evidence/`.
+Captured evidence files:
+
+- Local FastAPI docs: `docs/evidence/local-docs.png`
+- Pytest success output: `docs/evidence/pytest-success.png`
+- GHCR image verification: `docs/evidence/docker-ghcr-success.png`
+- Kubernetes deployment verification: `docs/evidence/k8s-success.png`
+- GitHub Actions success: `docs/evidence/github-actions-success.png`
+
+Supporting text captures:
+
+- `docs/evidence/pytest-success.html`
+- `docs/evidence/docker-ghcr-success.html`
+- `docs/evidence/k8s-success.html`
+- `docs/evidence/verification.md`
+
+### Quick Preview
+
+#### Local API Docs
+
+![Local FastAPI docs](docs/evidence/local-docs.png)
+
+#### Pytest Passed
+
+![Pytest success](docs/evidence/pytest-success.png)
+
+#### GHCR Verification
+
+![GHCR verification](docs/evidence/docker-ghcr-success.png)
+
+#### Kubernetes Verification
+
+![Kubernetes verification](docs/evidence/k8s-success.png)
+
+#### GitHub Actions Success
+
+![GitHub Actions success](docs/evidence/github-actions-success.png)
 
 ## Current Verification Status
 
@@ -139,3 +174,4 @@ Store genuine screenshots of successful local runs, Docker output, CI runs, and 
 - Kubernetes manifest render: completed
 - Live Kubernetes deployment on kind: completed
 - GitHub Actions CI run: completed successfully
+
