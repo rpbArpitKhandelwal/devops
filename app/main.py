@@ -11,3 +11,8 @@ def home() -> dict[str, str]:
         "application": APP_NAME,
         "status": "success",
     }
+
+
+@app.get("/health")
+def health() -> dict[str, str]:
+    return {"status": "healthy"}
