@@ -89,15 +89,15 @@ The workflow in `.github/workflows/ci.yml` performs:
 
 Expected image path after publishing:
 
-- `ghcr.io/<your-github-username>/devops-cicd-kubernetes-lab:latest`
+- `ghcr.io/rpbArpitKhandelwal/devops-cicd-kubernetes-lab:latest`
 
 Pull command:
 
-- `docker pull ghcr.io/<your-github-username>/devops-cicd-kubernetes-lab:latest`
+- `docker pull ghcr.io/rpbArpitKhandelwal/devops-cicd-kubernetes-lab:latest`
 
 ## Kubernetes Deployment
 
-1. Replace `YOUR_GITHUB_USERNAME` in `k8s/deployment.yaml`.
+1. Replace `rpbArpitKhandelwal` in `k8s/deployment.yaml`.
 2. Ensure a Kubernetes context is active.
 3. Apply manifests: `kubectl apply -k k8s`
 4. Port-forward: `kubectl port-forward svc/order-service 8000:80`
