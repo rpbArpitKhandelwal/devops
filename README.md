@@ -72,3 +72,61 @@ flowchart LR
 - Verify root: `curl http://127.0.0.1:8000/`
 - Verify health: `curl http://127.0.0.1:8000/health`
 - Verify orders: `curl http://127.0.0.1:8000/orders`
+
+## GitHub Actions Pipeline
+
+The workflow in `.github/workflows/ci.yml` performs:
+
+1. Source checkout
+2. Python setup
+3. Dependency installation
+4. Pytest execution
+5. Docker image build
+6. Container smoke test
+7. GHCR push on `main`
+
+## GHCR Image Information
+
+Expected image path after publishing:
+
+- `ghcr.io/<your-github-username>/devops-cicd-kubernetes-lab:latest`
+
+Pull command:
+
+- `docker pull ghcr.io/<your-github-username>/devops-cicd-kubernetes-lab:latest`
+
+## Kubernetes Deployment
+
+1. Replace `YOUR_GITHUB_USERNAME` in `k8s/deployment.yaml`.
+2. Ensure a Kubernetes context is active.
+3. Apply manifests: `kubectl apply -k k8s`
+4. Port-forward: `kubectl port-forward svc/order-service 8000:80`
+5. Verify endpoints from `http://127.0.0.1:8000`
+
+## Verification Commands
+
+- API tests: `./.venv/Scripts/python.exe -m pytest -v`
+- Docker logs: `docker logs order-service`
+- Kubernetes render: `kubectl kustomize k8s`
+- Kubernetes pods: `kubectl get pods`
+- Kubernetes service: `kubectl get svc order-service`
+
+## Troubleshooting
+
+- Architecture notes: `docs/architecture.md`
+- Troubleshooting log: `docs/troubleshooting.md`
+- Operations runbook: `docs/runbook.md`
+- Verification notes: `docs/evidence/verification.md`
+
+## Screenshots and Evidence
+
+Store genuine screenshots of successful local runs, Docker output, CI runs, and Kubernetes verification in `docs/evidence/`.
+
+## Current Verification Status
+
+- Local pytest verification: completed
+- Live local FastAPI verification: completed
+- Docker build and container smoke test: completed
+- Kubernetes manifest render: completed
+- Kubernetes live deployment: pending an active cluster context
+- GHCR publish verification: pending GitHub repository setup and Actions execution
