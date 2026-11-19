@@ -20,3 +20,15 @@ def test_health() -> None:
 
     assert response.status_code == 200
     assert response.json() == {"status": "healthy"}
+
+
+def test_orders() -> None:
+    response = client.get("/orders")
+    payload = response.json()
+
+    assert response.status_code == 200
+    assert isinstance(payload["orders"], list)
+    assert len(payload["orders"]) == 2
+    assert payload["orders"][0] == {"id": 1, "item": "Laptop", "status": "shipped"}
+    assert payload["orders"][1] == {"id": 2, "item": "Keyboard", "status": "processing"}
+    assert payload["timestamp"].endswith("+00:00")
