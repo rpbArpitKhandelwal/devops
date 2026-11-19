@@ -36,3 +36,17 @@ jobs:
           context: .
           load: true
           tags: devops-cicd-kubernetes-lab:ci
+
+      - name: Smoke test container
+        run: |
+          docker run -d --name order-service-smoke -p 8000:8000 devops-cicd-kubernetes-lab:ci
+          for i in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:8000/health; then
+              break
+            fi
+            sleep 3
+          done
+          curl --fail http://127.0.0.1:8000/
+          curl --fail http://127.0.0.1:8000/orders
+          docker logs order-service-smoke
+          docker rm -f order-service-smoke
