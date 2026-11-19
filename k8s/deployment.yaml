@@ -1,4 +1,4 @@
-﻿apiVersion: apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: order-service
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: ghcr.io/YOUR_GITHUB_USERNAME/devops-cicd-kubernetes-lab:latest
+          image: ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000

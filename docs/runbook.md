@@ -15,8 +15,14 @@
 - Check health: `curl http://localhost:8000/health`
 - Stop container: `docker rm -f order-service`
 
+## GHCR
+
+- Pull published image: `docker pull ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest`
+- Run published image: `docker run --rm -d --name ghcr-order-service -p 8002:8000 ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest`
+
 ## Kubernetes
 
+- Create kind cluster: `kind create cluster --name devops-lab`
 - Check context: `kubectl config current-context`
 - Apply manifests: `kubectl apply -k k8s`
 - Check pods: `kubectl get pods`
@@ -24,6 +30,7 @@
 - Describe deployment: `kubectl describe deployment order-service`
 - View logs: `kubectl logs deployment/order-service`
 - Port-forward: `kubectl port-forward svc/order-service 8000:80`
+- Delete kind cluster: `kind delete cluster --name devops-lab`
 
 ## GitHub Actions
 

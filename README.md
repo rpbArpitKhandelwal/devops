@@ -1,6 +1,6 @@
 ﻿# DevOps CI/CD and Kubernetes Deployment Lab
 
-A hands-on DevOps portfolio project that packages a small FastAPI order service with automated tests, containerization, CI/CD, and Kubernetes deployment manifests.
+A hands-on DevOps portfolio project that packages a small FastAPI order service with automated tests, containerization, CI/CD, GHCR publishing, and Kubernetes deployment manifests.
 
 ## Problem Statement
 
@@ -15,6 +15,7 @@ Build a simple, verifiable service that demonstrates core DevOps skills: Python 
 - GitHub Actions
 - GitHub Container Registry (GHCR)
 - Kubernetes
+- kind
 
 ## Architecture
 
@@ -45,7 +46,9 @@ flowchart LR
 │   ├── deployment.yaml
 │   ├── kustomization.yaml
 │   └── service.yaml
-├── tests/test_main.py
+├── tests/
+│   ├── conftest.py
+│   └── test_main.py
 ├── .dockerignore
 ├── .gitignore
 ├── Dockerfile
@@ -85,23 +88,28 @@ The workflow in `.github/workflows/ci.yml` performs:
 6. Container smoke test
 7. GHCR push on `main`
 
+Successful run:
+
+- `https://github.com/rpbArpitKhandelwal/devops/actions/runs/44516038848`
+
 ## GHCR Image Information
 
-Expected image path after publishing:
+Published image path:
 
-- `ghcr.io/rpbArpitKhandelwal/devops-cicd-kubernetes-lab:latest`
+- `ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest`
 
 Pull command:
 
-- `docker pull ghcr.io/rpbArpitKhandelwal/devops-cicd-kubernetes-lab:latest`
+- `docker pull ghcr.io/rpbarpitkhandelwal/devops-cicd-kubernetes-lab:latest`
 
 ## Kubernetes Deployment
 
-1. Replace `rpbArpitKhandelwal` in `k8s/deployment.yaml`.
-2. Ensure a Kubernetes context is active.
-3. Apply manifests: `kubectl apply -k k8s`
-4. Port-forward: `kubectl port-forward svc/order-service 8000:80`
-5. Verify endpoints from `http://127.0.0.1:8000`
+1. Ensure a Kubernetes context is active.
+2. Apply manifests: `kubectl apply -k k8s`
+3. Port-forward: `kubectl port-forward svc/order-service 8000:80`
+4. Verify endpoints from `http://127.0.0.1:8000`
+
+The default manifest already points at the published GHCR image.
 
 ## Verification Commands
 
@@ -127,6 +135,7 @@ Store genuine screenshots of successful local runs, Docker output, CI runs, and 
 - Local pytest verification: completed
 - Live local FastAPI verification: completed
 - Docker build and container smoke test: completed
+- GHCR image pull and run verification: completed
 - Kubernetes manifest render: completed
-- Kubernetes live deployment: pending an active cluster context
-- GHCR publish verification: pending GitHub repository setup and Actions execution
+- Live Kubernetes deployment on kind: completed
+- GitHub Actions CI run: completed successfully

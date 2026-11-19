@@ -20,25 +20,25 @@
 - **Verification:** `./.venv/Scripts/python.exe -m pip install -r requirements.txt` completed successfully.
 - **Learning:** Broken global SSL overrides can affect otherwise healthy Python environments.
 
-## 3. Kubernetes cluster unavailable
+## 3. GitHub Actions import failure on Linux
 
-- **Problem:** Kubernetes verification is blocked locally.
+- **Problem:** the first successful local setup still failed in GitHub Actions.
+- **Observed error:** `ModuleNotFoundError: No module named 'app'`
+- **Investigation commands:** local Windows pytest run, Linux reproduction with `docker run --rm -v ${PWD}:/workspace -w /workspace python:3.13-slim bash -lc "pip install -r requirements.txt && pytest -v"`
+- **Root cause:** the repository root was not guaranteed to be on `sys.path` during Linux test collection.
+- **Fix applied:** Added `tests/conftest.py` to prepend the project root before tests import `app.main`.
+- **Verification:** local Windows tests passed, Linux container reproduction passed, and GitHub Actions run `44516038848` succeeded.
+- **Learning:** A test suite that works on one OS can still fail in CI if imports depend on environment-specific path behavior.
+
+## 4. Kubernetes context unavailable by default
+
+- **Problem:** `kubectl` was installed but no active cluster context existed.
 - **Observed error:** `current-context is not set` and `Unable to connect to the server: dial tcp [::1]:8080...`
-- **Investigation commands:** `kubectl config current-context`, `kubectl cluster-info`, `kubectl kustomize k8s`
-- **Root cause:** `kubectl` is installed, but no active cluster context is configured.
-- **Fix applied:** Manifest files were created and rendered successfully with `kubectl kustomize k8s`; live deployment still requires enabling a cluster such as Docker Desktop Kubernetes.
-- **Verification:** Client tooling is present and manifests render offline.
-- **Learning:** Installed CLI tools do not guarantee an available runtime cluster.
-
-## 4. Docker engine access
-
-- **Problem:** Initial Docker commands failed from the agent sandbox.
-- **Observed error:** `permission denied while trying to connect to the docker API at npipe:////./pipe/docker_engine`
-- **Investigation commands:** `docker --version`, `docker info --format '{{.ServerVersion}}'`
-- **Root cause:** The initial session lacked access to the Docker engine pipe.
-- **Fix applied:** Re-ran Docker commands with approved host access and isolated Docker config under `.docker-tmp`.
-- **Verification:** The image built successfully and the container served `/`, `/health`, and `/orders`.
-- **Learning:** Docker Desktop being up does not guarantee pipe access from every execution context.
+- **Investigation commands:** `kubectl config current-context`, `kubectl cluster-info`
+- **Root cause:** there was no running local cluster behind the default context.
+- **Fix applied:** Installed a workspace-local `kind` binary, created the `kind-devops-lab` cluster, and deployed the app there.
+- **Verification:** `kubectl rollout status deployment/order-service` completed successfully and the service responded through `kubectl port-forward`.
+- **Learning:** Having `kubectl` installed is separate from having a live cluster to talk to.
 
 ## 5. Controlled troubleshooting exercise: wrong container port mapping
 
